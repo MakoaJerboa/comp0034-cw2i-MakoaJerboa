@@ -9,10 +9,6 @@ from census.figures import get_bar_2011, get_bar_2021
 #bar_2011 = 
 bar_2021 = get_bar_2021()
 
-# Allows me to spell centre and colour correctly
-centre="center"
-colour = "color"
-
 # Variable that contains the external_stylesheet to use, in this case Bootstrap styling from dash bootstrap components (dbc)
 external_stylesheets = [dbc.themes.CYBORG]
 
@@ -64,7 +60,7 @@ row_four = dbc.Row([
 app.layout = dbc.Container(
     html.Div([
     html.Div(children='My First App with Data, Graph, and Controls',
-             style={'textAlign': centre, colour: 'blue', 'fontSize': 30}),
+             style={'textAlign': "center", "color": 'blue', 'fontSize': 30}),
     html.Div(children='Hello World'),
     row_one,
     row_two,
