@@ -6,8 +6,8 @@ import plotly.express as px
 from census.figures import get_bar_2011, get_bar_2021
 
 # Defines charts
-#bar_2011 = 
-bar_2021 = get_bar_2021()
+bar_2011 = get_bar_2011("15 hours or less")
+bar_2021 = get_bar_2021("15 hours or less")
 
 # Variable that contains the external_stylesheet to use, in this case Bootstrap styling from dash bootstrap components (dbc)
 external_stylesheets = [dbc.themes.CYBORG]
@@ -29,7 +29,7 @@ html.P(
 ])
 
 row_two = dbc.Row([
-    dbc.Col(children=[dcc.Graph(id="bar_2011", figure=get_bar_2011("15 hours or less"))], width=6),
+    dbc.Col(children=[dcc.Graph(id="bar_2011", figure=bar_2011)], width=6),
     dbc.Col(children=[dcc.Graph(id="bar_2021", figure=bar_2021)], width=6),
 ])
 
@@ -38,7 +38,7 @@ row_three = dbc.Row([
                                      # id uniquely identifies the element, will be needed later
                                      options=["15 hours or less", "16 to 30 hours", "31 to 48 hours", "49 or more hours"],
                                      searchable=False, multi=True,
-                                     value="16 to 30 hours"  # The default selection
+                                     value="15 hours or less"  # The default selection
                                      ),
                           ], width=2),
     dbc.Col(children=[], width={"size": 2, "offset": 2}),  # 4 'empty' columns between this and the previous column
@@ -69,16 +69,21 @@ app.layout = dbc.Container(
 ])
 )
 
-@callback(
+@app.callback(
     [Output("bar_2011", "figure")],
     [Input("dropdown-2011", "value")],
 )
-
 def update_bar_2011(selected_hours):
-    selected_hours = [selected_hours]
-    print(selected_hours)
-    figure = get_bar_2011(selected_hours)
-    return figure
+    bar_2011 = get_bar_2011(selected_hours)
+    return [bar_2011]
+
+@app.callback(
+    [Output("bar_2021", "figure")],
+    [Input("dropdown-2021", "value")],
+)
+def update_bar_2021(selected_hours):
+    bar_2021 = get_bar_2021(selected_hours)
+    return [bar_2021]
 
 # Run the app
 if __name__ == '__main__':
