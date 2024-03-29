@@ -1,12 +1,12 @@
 # Imports for Dash and Dash.html
-from dash import Dash, html, dcc
+from dash import Dash, html, dcc, callback, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 from census.figures import get_bar_2011, get_bar_2021
 
 # Defines charts
-bar_2011 = get_bar_2011()
+#bar_2011 = 
 bar_2021 = get_bar_2021()
 
 # Allows me to spell centre and colour correctly
@@ -33,33 +33,23 @@ html.P(
 ])
 
 row_two = dbc.Row([
-    dbc.Col(children=[dcc.Graph(id="bar_2011", figure=bar_2011)], width=6),
+    dbc.Col(children=[dcc.Graph(id="bar_2011", figure=get_bar_2011("15 hours or less"))], width=6),
     dbc.Col(children=[dcc.Graph(id="bar_2021", figure=bar_2021)], width=6),
 ])
 
 row_three = dbc.Row([
-    dbc.Col(children=[dbc.Select(id="dropdown-2011",
+    dbc.Col(children=[dcc.Dropdown(id="dropdown-2011",
                                      # id uniquely identifies the element, will be needed later
-                                     options=[
-                                         {"label": "15 hours or less", "value": "15 hours or less"},
-                                         # The value is in the format of the column heading in the data
-                                         {"label": "16 to 30 hours", "value": "16 to 30 hours"},
-                                         {"label": "31 to 48 hours", "value": "31 to 48 hours"},
-                                         {"label": "49 or more hours", "value": "49 or more hours"},
-                                     ],
-                                     value="15 hours or less"  # The default selection
+                                     options=["15 hours or less", "16 to 30 hours", "31 to 48 hours", "49 or more hours"],
+                                     searchable=False, multi=True,
+                                     value="16 to 30 hours"  # The default selection
                                      ),
                           ], width=2),
     dbc.Col(children=[], width={"size": 2, "offset": 2}),  # 4 'empty' columns between this and the previous column
-    dbc.Col(children=[dbc.Select(id="dropdown-2021",
+    dbc.Col(children=[dcc.Dropdown(id="dropdown-2021",
                                      # id uniquely identifies the element, will be needed later
-                                     options=[
-                                         {"label": "15 hours or less", "value": "15 hours or less"},
-                                         # The value is in the format of the column heading in the data
-                                         {"label": "16 to 30 hours", "value": "16 to 30 hours"},
-                                         {"label": "31 to 48 hours", "value": "31 to 48 hours"},
-                                         {"label": "49 or more hours", "value": "49 or more hours"},
-                                     ],
+                                     options=["15 hours or less", "16 to 30 hours", "31 to 48 hours", "49 or more hours"],
+                                     searchable=False, multi=True,
                                      value="15 hours or less"  # The default selection
                                      ),
                           ], width=2),
@@ -82,6 +72,17 @@ app.layout = dbc.Container(
     row_four,
 ])
 )
+
+@callback(
+    [Output("bar_2011", "figure")],
+    [Input("dropdown-2011", "value")],
+)
+
+def update_bar_2011(selected_hours):
+    selected_hours = [selected_hours]
+    print(selected_hours)
+    figure = get_bar_2011(selected_hours)
+    return figure
 
 # Run the app
 if __name__ == '__main__':
