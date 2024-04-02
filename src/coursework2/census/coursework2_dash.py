@@ -29,7 +29,11 @@ app.layout = dbc.Container(
 ])
 )
 
-# Callbacks to update the charts based on the dropdown selections
+# Callbacks to update the charts based on the dropdown selections:
+    # The first callback updates the 2011 bar chart based on the selected worked hours band
+    # The second callback updates the 2021 bar chart based on the selected worked hours band
+    # The third callback updates the 2011 pie chart based on the selected area
+    # The fourth callback updates the 2021 pie chart based on the selected area
 @app.callback(
     [Output("bar_2011", "figure")],
     [Input("dropdown-bar-2011", "value")],
