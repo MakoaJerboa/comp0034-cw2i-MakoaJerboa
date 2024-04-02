@@ -1,8 +1,10 @@
 import os
 from selenium.webdriver.chrome.options import Options
+import pytest
 
+@pytest.fixture(scope="session", autouse=True)
 
-def pytest_setup_options():
+def setup_options():
     """pytest extra command line arguments for running chrome driver
 
      For GitHub Actions or similar container you need to run it headless.

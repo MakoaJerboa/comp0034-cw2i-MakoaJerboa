@@ -9,12 +9,9 @@ version = "0.0.1"
 # Refer to https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
 [tool.setuptools.packages.find]
 where = ["src/coursework2"]
-include = ["census"]  # alternatively: `exclude = ["additional*"]`
+include = ["census"]
+#exclude = ["tests"]
 namespaces = false
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
-addopts = "-rA --verbose"
-
-[tool.pytest.config]
-rootpath = ["src"]
+addopts = "-v"
