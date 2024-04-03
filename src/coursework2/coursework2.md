@@ -1,4 +1,4 @@
-# Coursework 1 Markdown
+# Coursework 2 Markdown
 
 ## Link to Repository
 https://github.com/ucl-comp0035/comp0034-cw2i-MakoaJerboa
