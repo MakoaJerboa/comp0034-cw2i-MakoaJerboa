@@ -24,6 +24,10 @@ All tests ran successfully. In the testing, both bar chart tests use the same op
 
 ![Tests](./images/Tests.png)
 
+Github Actions were also used for testing. They did not support running "pip install -e ." from within requirements.txt, so I added a separate line in python-app.yml to install it separately and then created a separate requirements file for Github without it included.
+
+![alt text](./images/GithubTests.png)
+
 ## References
 ### Use of AI
 Github Copilot was used for autocomplete and debugging some errors.
